@@ -4,8 +4,9 @@
 
 [submodule "third_party/mmdetection"]
 	path = third_party/mmdetection
-	url = https://github.com/open-mmlab/mmdetection.git
-
+	url = git@github.com:open-mmlab/mmdetection.git
+	
 [submodule "third_party/mmengine"]
 	path = third_party/mmengine
 	url = https://github.com/open-mmlab/mmengine.git
+
