@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 import copy
 
 import torch

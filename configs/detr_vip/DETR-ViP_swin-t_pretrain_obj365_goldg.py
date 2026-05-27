@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 _base_ = 'DETR-ViP_swin-t_pretrain_obj365.py'
 
 model = dict(

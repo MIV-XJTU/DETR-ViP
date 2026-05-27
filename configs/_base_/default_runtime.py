@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 default_scope = 'mmdet'
 
 default_hooks = dict(

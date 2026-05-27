@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 from typing import Dict, List, Optional, Tuple, Union
 import copy
 import math

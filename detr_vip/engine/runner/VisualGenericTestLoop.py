@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 from itertools import accumulate
 from typing import Dict, List, Optional, Sequence, Tuple, Union
 import copy

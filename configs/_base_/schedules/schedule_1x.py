@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 # training schedule for 1x
 train_cfg = dict(type='EpochBasedTrainLoop', max_epochs=12, val_interval=1)
 val_cfg = dict(type='ValLoop')

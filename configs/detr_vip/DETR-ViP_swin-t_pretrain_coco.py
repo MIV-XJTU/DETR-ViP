@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 _base_ = [
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]

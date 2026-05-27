@@ -1,3 +1,5 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
+
 from typing import Optional, Tuple
 
 import torch

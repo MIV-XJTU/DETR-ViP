@@ -1,3 +1,4 @@
+# Copyright (c) MIV-XJTU. All rights reserved.
 # Copyright (c) OpenMMLab. All rights reserved.
 
 from typing import Dict, Optional, Tuple, Union, List
