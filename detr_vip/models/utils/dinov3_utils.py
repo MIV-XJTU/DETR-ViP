@@ -3,18 +3,18 @@
 # This software may be used and distributed in accordance with
 # the terms of the DINOv3 License Agreement.
 
+from typing import Callable, List, Optional, Tuple
 import logging
 import os
 import random
 import subprocess
-from typing import Callable, List, Optional, Tuple
 
 import numpy as np
+
 import torch
 from torch import Tensor, nn
 
 logger = logging.getLogger("dinov3")
-
 
 def cat_keep_shapes(x_list: List[Tensor]) -> Tuple[Tensor, List[Tuple[int]], List[int]]:
     shapes = [x.shape for x in x_list]
@@ -22,13 +22,11 @@ def cat_keep_shapes(x_list: List[Tensor]) -> Tuple[Tensor, List[Tuple[int]], Lis
     flattened = torch.cat([x.flatten(0, -2) for x in x_list])
     return flattened, shapes, num_tokens
 
-
 def uncat_with_shapes(flattened: Tensor, shapes: List[Tuple[int]], num_tokens: List[int]) -> List[Tensor]:
     outputs_splitted = torch.split_with_sizes(flattened, num_tokens, dim=0)
     shapes_adjusted = [shape[:-1] + torch.Size([flattened.shape[-1]]) for shape in shapes]
     outputs_reshaped = [o.reshape(shape) for o, shape in zip(outputs_splitted, shapes_adjusted)]
     return outputs_reshaped
-
 
 def named_replace(
     fn: Callable,
@@ -54,7 +52,6 @@ def named_replace(
         module = fn(module=module, name=name)
     return module
 
-
 def named_apply(
     fn: Callable,
     module: nn.Module,
@@ -77,7 +74,6 @@ def named_apply(
         fn(module=module, name=name)
     return module
 
-
 def fix_random_seeds(seed: int = 31):
     """
     Fix random seeds.
@@ -86,7 +82,6 @@ def fix_random_seeds(seed: int = 31):
     torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
     random.seed(seed)
-
 
 def get_sha() -> str:
     cwd = os.path.dirname(os.path.abspath(__file__))
@@ -108,19 +103,16 @@ def get_sha() -> str:
     message = f"sha: {sha}, status: {diff}, branch: {branch}"
     return message
 
-
 def get_conda_env() -> Tuple[Optional[str], Optional[str]]:
     conda_env_name = os.environ.get("CONDA_DEFAULT_ENV")
     conda_env_path = os.environ.get("CONDA_PREFIX")
     return conda_env_name, conda_env_path
-
 
 def count_parameters(module: nn.Module) -> int:
     c = 0
     for m in module.parameters():
         c += m.nelement()
     return c
-
 
 def has_batchnorms(model: nn.Module) -> bool:
     bn_types = (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d, nn.SyncBatchNorm)

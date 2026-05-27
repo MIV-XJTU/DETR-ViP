@@ -1,8 +1,8 @@
 from typing import Optional, List
 
 import torch
-from torch import Tensor
 import torch.distributed as dist
+from torch import Tensor
 from torch.distributed.nn.functional import all_gather
 
 class NestedTensor2D(object):
@@ -37,7 +37,6 @@ class NestedTensor2D(object):
             'tensors.shape': self.tensors.shape,
             'mask.shape': self.mask.shape
         }
-
 
 def nested_2Dtensor_from_tensor_list(tensor_list: List[Tensor], padding_value=-1):
     # TODO make this more general

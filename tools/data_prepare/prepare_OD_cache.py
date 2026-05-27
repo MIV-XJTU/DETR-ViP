@@ -1,8 +1,8 @@
 import argparse
 import json
 import pickle
-from detr_vip.models.language_models import CLIPTextModel
 
+from detr_vip.models.language_models import CLIPTextModel
 
 def generate_od_vocabulary(args):
     json_path = args.input

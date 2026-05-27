@@ -1,15 +1,16 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
+from typing import List, Optional
 import json
 import os.path as osp
-from typing import List, Optional
 import pickle
+
+from mmdet.datasets.base_det_dataset import BaseDetDataset
+from mmdet.registry import DATASETS
 
 from mmengine.fileio import get_local_path
 
-from mmdet.registry import DATASETS
 from .transforms import MapTextToEmbedding, RandomSamplingNegPosToList
-from mmdet.datasets.base_det_dataset import BaseDetDataset
-
 
 @DATASETS.register_module()
 class ODVGStableDataset(BaseDetDataset):

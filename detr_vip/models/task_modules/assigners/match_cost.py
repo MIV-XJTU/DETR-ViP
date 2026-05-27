@@ -1,13 +1,15 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
 from typing import Optional
 
 import torch
 import torch.nn.functional as F
-from mmengine.structures import InstanceData
 from torch import Tensor
 
-from mmdet.registry import TASK_UTILS
 from mmdet.models.task_modules.assigners import FocalLossCost
+from mmdet.registry import TASK_UTILS
+
+from mmengine.structures import InstanceData
 
 @TASK_UTILS.register_module()
 class DETRViPBinaryFocalLossCost(FocalLossCost):

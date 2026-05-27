@@ -1,28 +1,28 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-import copy
-import re
-import random
-import warnings
+
 from typing import Dict, Optional, Tuple, Union, List
-import types
+import copy
 import json
+import random
+import re
+import types
+import warnings
 
 import torch
-import torch.nn as nn
-
-from torch import Tensor
 import torch.distributed as dist
+import torch.nn as nn
+from torch import Tensor
 
-from mmengine.runner.amp import autocast
-from mmengine.dataset import pseudo_collate
+from mmdet.models.detectors.dino import DINO
+from mmdet.models.layers import SinePositionalEncoding, DeformableDetrTransformerEncoder, DinoTransformerDecoder
+from mmdet.models.layers.transformer.grounding_dino_layers import (
+    GroundingDinoTransformerDecoder, GroundingDinoTransformerEncoder)
 from mmdet.registry import MODELS
 from mmdet.structures import OptSampleList, SampleList, DetDataSample
 from mmdet.utils import ConfigType
 
-from mmdet.models.layers import SinePositionalEncoding, DeformableDetrTransformerEncoder, DinoTransformerDecoder
-from mmdet.models.layers.transformer.grounding_dino_layers import (
-    GroundingDinoTransformerDecoder, GroundingDinoTransformerEncoder)
-from mmdet.models.detectors.dino import DINO
+from mmengine.dataset import pseudo_collate
+from mmengine.runner.amp import autocast
 
 from ..prompt_encoder import VisualPromptEncoder
 from ..utils.misc import gather_logits, nested_2Dtensor_from_tensor_list
@@ -30,13 +30,11 @@ from ..utils.misc import gather_logits, nested_2Dtensor_from_tensor_list
 ForwardResults = Union[Dict[str, torch.Tensor], List[DetDataSample],
                        Tuple[torch.Tensor], torch.Tensor]
 
-
 # def clean_label_name(name: str) -> str:
 #     name = re.sub(r'\(.*\)', '', name)
 #     name = re.sub(r'_', ' ', name)
 #     name = re.sub(r'  ', ' ', name)
 #     return name
-
 
 # def chunks(lst: list, n: int) -> list:
 #     """Yield successive n-sized chunks from lst."""
@@ -50,7 +48,6 @@ ForwardResults = Union[Dict[str, torch.Tensor], List[DetDataSample],
 #     assert (counter == len(lst))
 
 #     return all_
-
 
 @MODELS.register_module()
 class DETRViP(DINO):
@@ -171,7 +168,6 @@ class DETRViP(DINO):
         tmp_dec_in, head_inputs_dict = self.pre_decoder(
             **encoder_outputs_dict, batch_data_samples=batch_data_samples, prompt_mode=prompt_mode)
         decoder_inputs_dict.update(tmp_dec_in)
-
 
         decoder_outputs_dict = self.forward_decoder(**decoder_inputs_dict, 
         cls_branches=self.bbox_head.cls_branches[:self.decoder.num_layers])
@@ -626,7 +622,6 @@ class DETRViP(DINO):
             data_sample.pred_instances = pred_instances
         return batch_data_samples
 
-
     def get_visual_prompt_step(self, data: Union[dict, tuple, list]) -> list:
         """``BaseModel`` implements ``test_step`` the same as ``val_step``.
 
@@ -638,7 +633,6 @@ class DETRViP(DINO):
         """
         data = self.data_preprocessor(data, False)
         return self._run_forward(data, mode='get_visual_prompts')  # type: ignore
-
 
     def val_step(self, data: Union[dict, tuple, list], prompt_dict, test_mode) -> list:
         """Gets the predictions of given data.

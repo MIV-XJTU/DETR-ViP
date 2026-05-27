@@ -1,22 +1,22 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
+from copy import deepcopy
 import argparse
 import os
 import os.path as osp
 import warnings
-from copy import deepcopy
-
-from mmengine import ConfigDict
-from mmengine.config import Config, DictAction
-from mmengine.runner import Runner
 
 from mmdet.engine.hooks.utils import trigger_visualization_hook
 from mmdet.evaluation import DumpDetResults
 from mmdet.registry import RUNNERS
 from mmdet.utils import setup_cache_size_limit_of_dynamo
 
+from mmengine import ConfigDict
+from mmengine.config import Config, DictAction
+from mmengine.runner import Runner
+
 import detr_vip
 
-# TODO: support fuse_conv_bn and format_only
 def parse_args():
     parser = argparse.ArgumentParser(
         description='MMDet test (and eval) a model')
@@ -62,7 +62,6 @@ def parse_args():
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)
     return args
-
 
 def main():
     args = parse_args()
@@ -144,7 +143,6 @@ def main():
 
     # start testing
     runner.test()
-
 
 if __name__ == '__main__':
     main()

@@ -1,21 +1,24 @@
+from typing import Tuple
+
 import torch
+import torch.distributed as dist
 import torch.nn as nn
 from torch import Tensor
-import torch.distributed as dist
 from torch.distributed.nn.functional import all_gather
-from typing import Tuple
 
 from mmcv.cnn import build_norm_layer
 from mmcv.cnn.bricks.transformer import FFN, MultiheadAttention
 from mmcv.ops import MultiScaleDeformableAttention
-from mmdet.registry import MODELS
-from mmdet.models.layers.transformer.dino_layers import DinoTransformerDecoder
-from mmdet.models.layers.transformer.deformable_detr_layers import DeformableDetrTransformerDecoderLayer
-from mmdet.models.layers.transformer.utils import MLP, coordinate_to_encoding, inverse_sigmoid
+
 from mmdet.models.layers.transformer import MLP
+from mmdet.models.layers.transformer.deformable_detr_layers import DeformableDetrTransformerDecoderLayer
+from mmdet.models.layers.transformer.dino_layers import DinoTransformerDecoder
+from mmdet.models.layers.transformer.utils import MLP, coordinate_to_encoding, inverse_sigmoid
+from mmdet.registry import MODELS
+from mmdet.utils import OptConfigType
+
 from mmengine.model import BaseModule
 from mmengine.model import ModuleList
-from mmdet.utils import OptConfigType
 
 @MODELS.register_module()
 class VisualPromptEncoder(DinoTransformerDecoder):

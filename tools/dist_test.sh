@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 cd path-to-project
-CONFIG=configs/mm_grounding_dino/lvis/grounding_dino_swin-t_pretrain_zeroshot_mini-lvis.py
-CHECKPOINT=work_dirs/grounding_dino_swin-t_pretrain_obj365_goldg_grit9m_v3det_20231204_095047-b448804b.pth
-work_dir=work_dirs/mm_grounding_dino
-GPUS=8
+
+CONFIG=$1
+CHECKPOINT=$2
+work_dir=$3
+GPUS=$4
 
 NNODES=${WORLD_SIZE}
 NODE_RANK=${RANK}

@@ -3,7 +3,9 @@ import json
 import os.path
 
 import jsonlines
+
 from pycocotools.coco import COCO
+
 from tqdm import tqdm
 
 id_map = {
@@ -94,7 +96,6 @@ key_list_o365 = [i for i in range(365)]
 val_list_o365 = [i for i in range(1, 366)]
 key_list_v3det = [i for i in range(13204)]
 val_list_v3det = [i for i in range(1, 13205)]
-
 
 def dump_coco_label_map(args):
     ori_map = {
@@ -192,7 +193,6 @@ def dump_coco_label_map(args):
     with open(output, 'w') as f:
         json.dump(new_map, f)
 
-
 def dump_o365v1_label_map(args):
     with open(args.input, 'r') as f:
         j = json.load(f)
@@ -207,7 +207,6 @@ def dump_o365v1_label_map(args):
         output = os.path.dirname(args.output) + '/o365v1_label_map.json'
     with open(output, 'w') as f:
         json.dump(o_dict, f)
-
 
 def dump_o365v2_label_map(args):
     with open(args.input, 'r') as f:
@@ -224,7 +223,6 @@ def dump_o365v2_label_map(args):
     with open(output, 'w') as f:
         json.dump(o_dict, f)
 
-
 def dump_v3det_label_map(args):
     with open(args.input, 'r') as f:
         j = json.load(f)
@@ -239,7 +237,6 @@ def dump_v3det_label_map(args):
         output = os.path.dirname(args.output) + '/v3det_2023_v1_label_map.json'
     with open(output, 'w') as f:
         json.dump(o_dict, f)
-
 
 def coco2odvg(args):
     coco = COCO(args.input)
@@ -326,7 +323,6 @@ def coco2odvg(args):
         writer.write_all(metas)
 
     print('save to {}'.format(out_path))
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('coco to odvg format.', add_help=True)

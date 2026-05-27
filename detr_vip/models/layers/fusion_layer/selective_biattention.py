@@ -1,9 +1,9 @@
 from typing import Optional, Tuple
 
 import torch
-from torch import Tensor
 import torch.nn as nn
 import torch.nn.functional as F
+from torch import Tensor
 
 MAX_CLAMP_VALUE = 50000
 
@@ -332,7 +332,6 @@ class EfficientSelectiveBiAttentionBlock(SelectiveBiAttentionBlock):
             embed_dim=embed_dim,
             num_heads=num_heads,
             dropout=dropout)
-
 
 class EfficientSelectiveBiMultiHeadAttention(SelectiveBiMultiHeadAttention):
     

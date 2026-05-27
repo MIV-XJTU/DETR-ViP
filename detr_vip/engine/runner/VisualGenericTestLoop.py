@@ -1,19 +1,19 @@
-import copy
 from itertools import accumulate
-
 from typing import Dict, List, Optional, Sequence, Tuple, Union
+import copy
+
 import torch
-from torch.utils.data import DataLoader
 import torch.distributed as dist
 from torch.distributed.nn.functional import all_gather
+from torch.utils.data import DataLoader
 
 from mmdet.engine.hooks.visualization_hook import DetVisualizationHook
 
 from mmengine.evaluator import Evaluator
+from mmengine.model.wrappers import is_model_wrapper
+from mmengine.registry import LOOPS
 from mmengine.runner.amp import autocast
 from mmengine.runner.loops import TestLoop, ValLoop, _update_losses
-from mmengine.registry import LOOPS
-from mmengine.model.wrappers import is_model_wrapper
 
 @LOOPS.register_module()
 class VisualGenericTestLoop(TestLoop):

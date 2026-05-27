@@ -56,7 +56,7 @@ train_pipeline = [
 o365v1_od_dataset = dict(
     type='ODVGStableDataset',
     data_root='data/objects365v1/',
-    ann_file='o365v1_train_odvg.json',
+    ann_file='objects365_train_od.json',
     label_map_file='o365v1_label_map.json',
     text_cache_file='cache/vocabulary/o365_vocabulary.pkl',
     data_prefix=dict(img='train/'),

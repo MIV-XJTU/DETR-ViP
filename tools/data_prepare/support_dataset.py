@@ -1,7 +1,7 @@
 import argparse
-
 import json
 import random
+
 from pycocotools.coco import COCO
 
 def generate_supset(args):

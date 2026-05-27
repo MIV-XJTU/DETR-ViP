@@ -1,9 +1,12 @@
-from torch import nn
-import torch.nn.functional as F
-import torch
-from transformers import CLIPModel, CLIPProcessor
 import copy
+
+import torch
+import torch.nn.functional as F
+from torch import nn
+
 from mmdet.registry import MODELS
+
+from transformers import CLIPModel, CLIPProcessor
 
 @MODELS.register_module()
 class CLIPTextModel(nn.Module):

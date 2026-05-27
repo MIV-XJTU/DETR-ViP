@@ -3,9 +3,9 @@
 # This software may be used and distributed in accordance with
 # the terms of the DINOv3 License Agreement.
 
-import logging
 from functools import partial
 from typing import Any, Dict, List, Literal, Optional, Sequence, Tuple, Union
+import logging
 
 import torch
 import torch.nn.init
@@ -36,7 +36,6 @@ dtype_dict = {
     "bf16": torch.bfloat16,
 }
 
-
 def init_weights_vit(module: nn.Module, name: str = ""):
     if isinstance(module, nn.Linear):
         torch.nn.init.trunc_normal_(module.weight, std=0.02)
@@ -50,7 +49,6 @@ def init_weights_vit(module: nn.Module, name: str = ""):
         module.reset_parameters()
     if isinstance(module, RMSNorm):
         module.reset_parameters()
-
 
 class DinoVisionTransformer(nn.Module):
     def __init__(
@@ -324,7 +322,6 @@ class DinoVisionTransformer(nn.Module):
         else:
             return self.head(ret["x_norm_clstoken"])
 
-
 def vit_small(patch_size=16, **kwargs):
     model = DinoVisionTransformer(
         patch_size=patch_size,
@@ -335,7 +332,6 @@ def vit_small(patch_size=16, **kwargs):
         **kwargs,
     )
     return model
-
 
 def vit_base(patch_size=16, **kwargs):
     model = DinoVisionTransformer(
@@ -348,7 +344,6 @@ def vit_base(patch_size=16, **kwargs):
     )
     return model
 
-
 def vit_large(patch_size=16, **kwargs):
     model = DinoVisionTransformer(
         patch_size=patch_size,
@@ -359,7 +354,6 @@ def vit_large(patch_size=16, **kwargs):
         **kwargs,
     )
     return model
-
 
 def vit_so400m(patch_size=16, **kwargs):
     model = DinoVisionTransformer(
@@ -372,7 +366,6 @@ def vit_so400m(patch_size=16, **kwargs):
     )
     return model
 
-
 def vit_huge2(patch_size=16, **kwargs):
     model = DinoVisionTransformer(
         patch_size=patch_size,
@@ -383,7 +376,6 @@ def vit_huge2(patch_size=16, **kwargs):
         **kwargs,
     )
     return model
-
 
 def vit_giant2(patch_size=16, **kwargs):
     """
@@ -398,7 +390,6 @@ def vit_giant2(patch_size=16, **kwargs):
         **kwargs,
     )
     return model
-
 
 def vit_7b(patch_size=16, **kwargs):
     model = DinoVisionTransformer(

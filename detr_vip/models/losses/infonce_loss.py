@@ -1,7 +1,8 @@
-from mmdet.registry import MODELS
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+from mmdet.registry import MODELS
 
 @MODELS.register_module()
 class InfoNCELoss(nn.Module):

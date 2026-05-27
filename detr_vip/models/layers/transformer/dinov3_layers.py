@@ -8,6 +8,7 @@ from typing import Union, Callable, List, Optional
 import torch
 import torch.nn.functional as F
 from torch import Tensor, nn
+
 from detr_vip.models.utils.dinov3_utils import cat_keep_shapes, uncat_with_shapes
 
 class LayerScale(nn.Module):
@@ -38,7 +39,6 @@ class ListForwardMixin(object):
         x_flat = self.forward(x_flat)
         return uncat_with_shapes(x_flat, shapes, num_tokens)
 
-
 class Mlp(nn.Module, ListForwardMixin):
     def __init__(
         self,
@@ -65,7 +65,6 @@ class Mlp(nn.Module, ListForwardMixin):
         x = self.fc2(x)
         x = self.drop(x)
         return x
-
 
 class SwiGLUFFN(nn.Module, ListForwardMixin):
     def __init__(

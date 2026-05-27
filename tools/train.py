@@ -1,13 +1,14 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
 import argparse
 import os
 import os.path as osp
 
+from mmdet.utils import setup_cache_size_limit_of_dynamo
+
 from mmengine.config import Config, DictAction
 from mmengine.registry import RUNNERS
 from mmengine.runner import Runner
-
-from mmdet.utils import setup_cache_size_limit_of_dynamo
 
 import detr_vip
 
@@ -56,7 +57,6 @@ def parse_args():
         os.environ['LOCAL_RANK'] = str(args.local_rank)
 
     return args
-
 
 def main():
     args = parse_args()
@@ -116,7 +116,6 @@ def main():
 
     # start training
     runner.train()
-
 
 if __name__ == '__main__':
     main()

@@ -1,17 +1,17 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
+import copy
 import json
+import pickle
+import random
+import re
+
+import numpy as np
 
 from mmcv.transforms import BaseTransform
 
 from mmdet.registry import TRANSFORMS
 from mmdet.structures.bbox import BaseBoxes
-
-import random
-import re
-
-import numpy as np
-import pickle
-import copy
 
 from ..utils import extract_head_noun, is_noun, get_lemma
 
@@ -129,6 +129,7 @@ class MapTextToEmbedding(BaseTransform):
             text = results['text'].split('.')
             text = [t for t in text if t != ""]
             text_prompts = [self.text_cache[t] for t in text]
-        text_prompts = np.concatenate(text_prompts, 0) if len(text_prompts) > 0 else text_prompts
+        if len(text_prompts) > 0:
+            text_prompts = np.stack(text_prompts, 0) if len(text_prompts[0].shape)==1 else np.concatenate(text_prompts, 0)
         results['text_prompts'] = text_prompts
         return results

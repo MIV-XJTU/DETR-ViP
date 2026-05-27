@@ -1,27 +1,28 @@
+from typing import Dict, List, Optional, Tuple, Union
 import copy
 import math
-from typing import Dict, List, Optional, Tuple, Union
 
 import torch
-from torch import Tensor
-import torch.nn as nn
 import torch.distributed as dist
+import torch.nn as nn
 import torch.nn.functional as F
+from torch import Tensor
 from torch.distributed.nn.functional import all_gather
 
 from mmcv.cnn import Linear
+
+from mmdet.models.dense_heads.atss_vlfusion_head import convert_grounding_to_cls_scores
+from mmdet.models.dense_heads.dino_head import DINOHead
+from mmdet.models.dense_heads.grounding_dino_head import GroundingDINOHead
+from mmdet.models.layers import inverse_sigmoid
 from mmdet.models.losses import QualityFocalLoss
+from mmdet.models.utils import multi_apply
 from mmdet.registry import MODELS
 from mmdet.structures import SampleList
 from mmdet.structures.bbox import bbox_cxcywh_to_xyxy, bbox_xyxy_to_cxcywh
 from mmdet.utils import InstanceList, reduce_mean, OptInstanceList
-from mmengine.structures import InstanceData
 
-from mmdet.models.layers import inverse_sigmoid
-from mmdet.models.dense_heads.grounding_dino_head import GroundingDINOHead
-from mmdet.models.dense_heads.dino_head import DINOHead
-from mmdet.models.dense_heads.atss_vlfusion_head import convert_grounding_to_cls_scores
-from mmdet.models.utils import multi_apply
+from mmengine.structures import InstanceData
 
 from ..utils.misc import gather_logits
 

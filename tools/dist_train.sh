@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 cd path-to-project
 
-work_dir=work_dirs/weight-distill-20
-CONFIG=configs/detr_vip/DETR-ViP_swin-t_pretrain_obj365_goldg.py
-GPUS=4
+work_dir=$1
+CONFIG=$2
+GPUS=$3
 
 NNODES=${WORLD_SIZE}
 NODE_RANK=${RANK}

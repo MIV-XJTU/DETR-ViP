@@ -1,12 +1,16 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmcv.transforms import BaseTransform
-from mmdet.registry import TRANSFORMS
-from mmdet.structures.bbox import bbox_cxcywh_to_xyxy, bbox_xyxy_to_cxcywh, HorizontalBoxes
+
+import random
 
 import numpy as np
+
 import torch
 from torch import Tensor
-import random
+
+from mmcv.transforms import BaseTransform
+
+from mmdet.registry import TRANSFORMS
+from mmdet.structures.bbox import bbox_cxcywh_to_xyxy, bbox_xyxy_to_cxcywh, HorizontalBoxes
 
 @TRANSFORMS.register_module()
 class RandomSamplingVisualPrompt(BaseTransform):

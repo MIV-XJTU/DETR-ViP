@@ -1,17 +1,21 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
+from typing import Dict, List, Optional, Sequence, Tuple, Union
 import copy
 import itertools
 import random
-from types import SimpleNamespace
-from typing import Dict, List, Optional, Sequence, Tuple, Union
-from torch.utils.data import DataLoader
+
 import torch
 import torch.distributed as dist
+from torch.utils.data import DataLoader
+
+from mmdet.registry import LOOPS
 
 from mmengine.model import is_model_wrapper
 from mmengine.runner import EpochBasedTrainLoop
 from mmengine.runner.utils import calc_dynamic_intervals
-from mmdet.registry import LOOPS
+
+from types import SimpleNamespace
 
 @LOOPS.register_module()
 class DistributedSyncTrainLoop(EpochBasedTrainLoop):
