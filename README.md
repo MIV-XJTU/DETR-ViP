@@ -1,4 +1,6 @@
-# [(ICLR 2026) DETR-ViP: Detection Transformer with Robust Discriminative Visual Prompts](https://arxiv.org/pdf/2604.14684)
+# DETR-ViP: Detection Transformer with Robust Discriminative Visual Prompts
+
+[[Paper]](https://arxiv.org/abs/2604.14684) [[PDF]](https://arxiv.org/abs/2604.14684) [[BibTeX]](#citation)
 
 ## Introduction
 
@@ -65,6 +67,14 @@ This repository contains the official implementation of DETR-ViP-T and DETR-ViP-
   </tbody>
 </table>
 
+Below are qualitative results of zero-shot generic detection on COCO:
+
+![Generic Detection on COCO](figs/vg_vis_on_coco.png)
+
+Below are qualitative results of zero-shot generic detection on LVIS:
+
+![Generic Detection on LVIS](figs/vg_vis_on_lvis.png)
+
 ### Zero-shot Interactive Detection (COCO & LVIS)
 
 <table border="1" cellpadding="6" style="border-collapse: collapse; text-align: center; margin: 0 auto;">
@@ -109,6 +119,14 @@ This repository contains the official implementation of DETR-ViP-T and DETR-ViP-
     </tr>
   </tbody>
 </table>
+
+Below are qualitative results of zero-shot interactive detection on COCO:
+
+![Interactive Detection on COCO](figs/vi_vis_on_coco.png)
+
+Below are qualitative results of zero-shot interactive detection on LVIS:
+
+![Interactive Detection on LVIS](figs/vi_vis_on_lvis.png)
 
 ## Installation
 
@@ -175,9 +193,9 @@ If offline, download the above and place them under `~/.cache/torch/hub/checkpoi
 **CLIP model** (for generating category feature caches):  
 Download from [clip-vit-base-patch32](https://huggingface.co/openai/clip-vit-base-patch32/tree/main) and set the path as `path_clip_weights` in the commands below.
 
-### DETR-ViP-T Pretraining Data
+### Pretraining Data
 
-DETR-ViP-T is pretrained on **Objects365 V1** and **GoldG** datasets. Configs for training on COCO or Objects365 alone are also provided.
+The models are pretrained on **Objects365 V1** and **GoldG** datasets. Configs for training on COCO or Objects365 alone are also provided.
 
 #### 1. Objects365 V1
 
@@ -317,7 +335,7 @@ python -m tools.data_prepare.prepare_OG_cache --clip-path <path_clip_weights> --
 Example:
 
 ```shell
-python -m tools.data_prepare.prepare_OG_cache --clip-path weights/clip-vit-base-patch32 --gqa-path data/GQA/final_mixed_train_no_coco_vg.json --flickr-path data/flickr/final_flickr_separateGT_train_vg.json --save-path cache/vocabulary/grounding
+python -m tools.data_prepare.prepare_OG_cache --clip-path weights/clip-vit-base-patch32 --gqa-path data/gqa/final_mixed_train_no_coco_vg.json --flickr-path data/flickr30k_entities/final_flickr_separateGT_train_vg.json --save-path cache/vocabulary/
 ```
 
 #### 3. COCO 2017
@@ -336,7 +354,7 @@ Sample the support set for Visual-G prompt detection using [support_dataset.py](
 python -m tools.data_prepare.support_dataset data/coco/annotations/instances_train2017.json -o cache/support/coco_sub.json
 ```
 
-### DETR-ViP-T Evaluation Data
+### Evaluation Data
 
 > **Note:** The evaluation content below has not been re-verified and may be updated in the future.
 

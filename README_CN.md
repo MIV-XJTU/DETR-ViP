@@ -1,4 +1,6 @@
-# [(ICLR 2026) DETR-ViP: Detection Transformer with Robust Discriminative Visual Prompts](https://arxiv.org/pdf/2604.14684)
+# DETR-ViP: Detection Transformer with Robust Discriminative Visual Prompts
+
+[[论文]](https://arxiv.org/abs/2604.14684) [[PDF]](https://arxiv.org/abs/2604.14684) [[BibTeX]](#citation)
 
 ## 简介
 
@@ -66,6 +68,14 @@ DETR-ViP 通过以下三项核心创新解决了这一问题：
   </tbody>
 </table>
 
+以下为零样本通用检测在 COCO 上的定性结果：
+
+![Generic Detection on COCO](figs/vg_vis_on_coco.png)
+
+以下为零样本通用检测在 LVIS 上的定性结果：
+
+![Generic Detection on LVIS](figs/vg_vis_on_lvis.png)
+
 ### 零样本交互式检测（COCO & LVIS）
 
 <table border="1" cellpadding="6" style="border-collapse: collapse; text-align: center; margin: 0 auto;">
@@ -110,6 +120,14 @@ DETR-ViP 通过以下三项核心创新解决了这一问题：
     </tr>
   </tbody>
 </table>
+
+以下为零样本交互式检测在 COCO 上的定性结果：
+
+![Interactive Detection on COCO](figs/vi_vis_on_coco.png)
+
+以下为零样本交互式检测在 LVIS 上的定性结果：
+
+![Interactive Detection on LVIS](figs/vi_vis_on_lvis.png)
 
 ## 安装
 
@@ -175,9 +193,9 @@ pip install -e . -v
 **CLIP 模型**（用于生成类别特征缓存）：  
 从 [clip-vit-base-patch32](https://huggingface.co/openai/clip-vit-base-patch32/tree/main) 下载，并将路径设置为下文命令中的 `path_clip_weights`。
 
-### DETR-ViP-T 预训练数据
+### 预训练数据
 
-DETR-ViP-T 在 **Objects365 V1** 和 **GoldG** 数据集上预训练，同时也提供了仅在 COCO 或 Objects365 上训练的配置。
+模型在 **Objects365 V1** 和 **GoldG** 数据集上预训练，同时也提供了仅在 COCO 或 Objects365 上训练的配置。
 
 #### 1. Objects365 V1
 
@@ -318,7 +336,7 @@ python -m tools.data_prepare.prepare_OG_cache --clip-path <path_clip_weights> --
 示例：
 
 ```shell
-python -m tools.data_prepare.prepare_OG_cache --clip-path weights/clip-vit-base-patch32 --gqa-path data/GQA/final_mixed_train_no_coco_vg.json --flickr-path data/flickr/final_flickr_separateGT_train_vg.json --save-path cache/vocabulary/grounding
+python -m tools.data_prepare.prepare_OG_cache --clip-path weights/clip-vit-base-patch32 --gqa-path data/gqa/final_mixed_train_no_coco_vg.json --flickr-path data/flickr30k_entities/final_flickr_separateGT_train_vg.json --save-path cache/vocabulary/
 ```
 
 #### 3. COCO 2017
@@ -337,7 +355,7 @@ python -m tools.data_prepare.prepare_OD_cache data/coco/annotations/instances_tr
 python -m tools.data_prepare.support_dataset data/coco/annotations/instances_train2017.json -o cache/support/coco_sub.json
 ```
 
-### DETR-ViP-T 评测数据
+### 评测数据
 
 > **注意：** 以下评测相关内容尚未重新验证有效性，有待后续更新。
 
