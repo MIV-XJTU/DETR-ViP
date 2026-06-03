@@ -56,6 +56,7 @@ def generate_vocabulary(clip_path, gqa_path, flickr_path, save_path):
         if t['fre'] > 100:
             neg_phrase_list.append(p)
 
+    phrase_list = list(phrase_items.keys())
     embedded = encoder(phrase_list, 'cuda').detach().cpu().numpy()
     phrase_items = dict(zip(phrase_list, embedded))
     neg_list_save_path = save_path+"grounding_neg_list.json"

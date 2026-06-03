@@ -348,6 +348,8 @@ Generate the COCO category CLIP feature cache (required for text detection evalu
 python -m tools.data_prepare.prepare_OD_cache data/coco/annotations/instances_train2017.json --clip-path <path_clip_weights> --output cache/vocabulary/coco_text_cache.pkl
 ```
 
+> **Note:** Make sure to create the `cache/support/` directory before running the support set sampling below.
+
 Sample the support set for Visual-G prompt detection using [support_dataset.py](tools/data_prepare/support_dataset.py):
 
 ```shell
@@ -359,6 +361,23 @@ python -m tools.data_prepare.support_dataset data/coco/annotations/instances_tra
 > **Note:** The evaluation content below has not been re-verified and may be updated in the future.
 
 #### LVIS
+
+Generate the LVIS category CLIP feature cache:
+
+```shell
+python -m tools.data_prepare.prepare_OD_cache data/lvis/annotations/lvis_v1_train.json --clip-path <path_clip_weights> --output cache/vocabulary/lvis_vocabulary.pkl
+```
+
+> **Note:** There is a typo in the LVIS vocabulary. After generating the cache, manually rename `speaker_(stero_equipment)` to `speaker_(stereo_equipment)`:
+> ```python
+> import pickle
+> with open("cache/vocabulary/lvis_vocabulary.pkl", 'rb') as f:
+>     data = pickle.load(f)
+> data['speaker_(stereo_equipment)'] = data['speaker_(stero_equipment)']
+> del data['speaker_(stero_equipment)']
+> with open("cache/vocabulary/lvis_vocabulary.pkl", 'wb') as f:
+>     pickle.dump(data, f)
+> ```
 
 Sample the support set for Visual-G prompt detection on LVIS:
 
@@ -417,6 +436,8 @@ Configure `.vscode/launch.json`:
 ```
 
 ## Evaluation
+
+> **Note:** You can switch between test modes (text / visual-generic / visual-interactive) by modifying `val_mode` and `test_mode` in `val_cfg` and `test_cfg` of the config file.
 
 ### Single GPU
 

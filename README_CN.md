@@ -247,7 +247,7 @@ DETR-ViP
 │   │   ├── test
 ```
 
-生成 Objects365 类别名的 CLIP 特征缓存（[prepare_OD_cache.py](tools/data_prepare/prepare_OD_cache.py) 所需）：
+使用[prepare_OD_cache.py](tools/data_prepare/prepare_OD_cache.py)生成 Objects365 类别名的 CLIP 特征缓存：
 
 ```shell
 python -m tools.data_prepare.prepare_OD_cache data/objects365v1/objects365_train.json --clip-path <path_clip_weights> --output cache/vocabulary/o365_vocabulary.pkl
@@ -349,6 +349,8 @@ python -m tools.data_prepare.prepare_OG_cache --clip-path weights/clip-vit-base-
 python -m tools.data_prepare.prepare_OD_cache data/coco/annotations/instances_train2017.json --clip-path <path_clip_weights> --output cache/vocabulary/coco_text_cache.pkl
 ```
 
+> **注意：** 请确保在运行下面的 support 集合采样前，已在 `cache/` 下创建好 `support/` 目录。
+
 使用 [support_dataset.py](tools/data_prepare/support_dataset.py) 采样 Visual-G 视觉提示检测所需的 support 集合：
 
 ```shell
@@ -360,6 +362,23 @@ python -m tools.data_prepare.support_dataset data/coco/annotations/instances_tra
 > **注意：** 以下评测相关内容尚未重新验证有效性，有待后续更新。
 
 #### LVIS
+
+生成 LVIS 类别名的 CLIP 特征缓存：
+
+```shell
+python -m tools.data_prepare.prepare_OD_cache data/lvis/annotations/lvis_v1_train.json --clip-path <path_clip_weights> --output cache/vocabulary/lvis_vocabulary.pkl
+```
+
+> **注意：** LVIS 词汇表中存在一个拼写错误。生成缓存后，需手动将 `speaker_(stero_equipment)` 重命名为 `speaker_(stereo_equipment)`：
+> ```python
+> import pickle
+> with open("cache/vocabulary/lvis_vocabulary.pkl", 'rb') as f:
+>     data = pickle.load(f)
+> data['speaker_(stereo_equipment)'] = data['speaker_(stero_equipment)']
+> del data['speaker_(stero_equipment)']
+> with open("cache/vocabulary/lvis_vocabulary.pkl", 'wb') as f:
+>     pickle.dump(data, f)
+> ```
 
 为 Visual-G 视觉提示检测采样 support 集合：
 
@@ -417,6 +436,8 @@ bash tools/dist_train.sh configs/detr_vip/DETR-ViP_swin-t_pretrain_obj365.py 4 -
 ```
 
 ## 评估
+
+> **注意：** 可以通过修改 config 文件中 `val_cfg` 和 `test_cfg` 的 `val_mode` 和 `test_mode` 来切换测试方式（text / visual-generic / visual-interactive）。
 
 ### 单卡评估
 
