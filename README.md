@@ -358,7 +358,6 @@ python -m tools.data_prepare.support_dataset data/coco/annotations/instances_tra
 
 ### Evaluation Data
 
-> **Note:** The evaluation content below has not been re-verified and may be updated in the future.
 
 #### LVIS
 

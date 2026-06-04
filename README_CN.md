@@ -359,8 +359,6 @@ python -m tools.data_prepare.support_dataset data/coco/annotations/instances_tra
 
 ### 评测数据
 
-> **注意：** 以下评测相关内容尚未重新验证有效性，有待后续更新。
-
 #### LVIS
 
 生成 LVIS 类别名的 CLIP 特征缓存：
